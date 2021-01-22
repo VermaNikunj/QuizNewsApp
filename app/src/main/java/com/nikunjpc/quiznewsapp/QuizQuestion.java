@@ -51,10 +51,6 @@ public class QuizQuestion extends AppCompatActivity {
         btnext = (Button) findViewById( R.id.btnext );
         radioGroup = (RadioGroup) findViewById( R.id.radiogrp );
 
-//        MainActivity obj= new MainActivity();
-//        int i=0;
-//        Log.e("Print", "Print");
-//
 //
 //        Log.e("Print2", "List --- size:"+obj.incorrectlist.isEmpty());
 //        Log.e( "sizzzze22", "List --- size::: "+obj.questionlist.size() );
