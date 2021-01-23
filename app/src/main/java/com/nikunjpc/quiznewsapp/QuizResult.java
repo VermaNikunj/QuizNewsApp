@@ -13,8 +13,6 @@ import java.util.ArrayList;
 
 public class QuizResult extends AppCompatActivity {
 
-    private static  final int TIME_INTERVAL=10000;
-    private long mBackPressed;
 
     int numb;
     String type, cat;
@@ -68,16 +66,9 @@ public class QuizResult extends AppCompatActivity {
         }
 
     public void onBackPressed() {
-//        mBackPressed= System.currentTimeMillis();
-//        if(mBackPressed+ TIME_INTERVAL > System.currentTimeMillis()) {
-//            super.onBackPressed();
             Intent intent=new Intent( QuizResult.this, MainActivity.class);
             Toast.makeText( this, "Back to Main", Toast.LENGTH_SHORT ).show();
             startActivity(intent);
-//        }
-//        else{
-//            Toast.makeText( this, "Back to Main", Toast.LENGTH_SHORT ).show();
-//        }
 
     }
     }
