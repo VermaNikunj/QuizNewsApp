@@ -1,6 +1,7 @@
 package com.nikunjpc.quiznewsapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.nikunjpc.quiznewsapp.History.HistoryActivity;
 import com.nikunjpc.quiznewsapp.News.NewsMainActivity;
+import com.nikunjpc.quiznewsapp.TipOfTheDay.Tip;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> ad2;
 
     Spinner sp1,sp2;
-    Button btnews,bthistory;
+    Button btnews,bthistory,btTip;
 
     int cat, type;
 
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         sp1 = (Spinner) findViewById( R.id.sp1 );
         sp2 = (Spinner) findViewById( R.id.sp2 );
 
+
+        btTip=findViewById( R.id.btTip );
 
         List1 = new ArrayList<String>();
         List1.add( "Select the Category" );
@@ -144,6 +147,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity( intent );
+            }
+        } );
+
+        btTip.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Tip.class);
                 startActivity( intent );
             }
         } );
@@ -356,4 +367,6 @@ public class MainActivity extends AppCompatActivity {
         }
         mBackPressed= System.currentTimeMillis();
     }
+
+
 }

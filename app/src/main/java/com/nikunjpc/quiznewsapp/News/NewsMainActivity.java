@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +22,7 @@ import retrofit2.Callback;
 public class NewsMainActivity extends AppCompatActivity {
 
 //    String NewsUrl="";
-    String api="YOUR_API_KEY";
+    String api= "YOUR_API_KEY";
 //    String author, title, url, urlToImage;
 
     RecyclerView recyclerView;
@@ -93,6 +92,7 @@ public class NewsMainActivity extends AppCompatActivity {
 
         swipeRefreshLayout.setRefreshing(true);
         Call<News> call;
+//        "7e8b827c7ebe44acb452a7c682210861";
         if (!etQuery.getText().toString().equals("")){
             call= ApiClient.getInstance().getApi().getSpecificData(query,apiKey);
         }else{

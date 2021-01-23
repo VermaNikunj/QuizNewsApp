@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="6sp"
+    android:paddingStart="20sp"
+    android:paddingTop="12sp"
+    android:paddingBottom="14sp"
+    android:paddingEnd="20sp"
+    android:background="@drawable/border">
+        <TextView
+            android:id="@+id/tipDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5sp"
+            android:layout_weight="1"
+            android:text="Date"
+            android:gravity="start"
+            android:textColor="@color/cardview_shadow_start_color"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/tipLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tip"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:textSize="16sp"
+            android:textColor="@color/cardview_dark_background"
+            android:textStyle="bold"/>
+</LinearLayout>
