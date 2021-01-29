@@ -1,16 +1,21 @@
 package com.nikunjpc.quiznewsapp.News;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
+import com.nikunjpc.quiznewsapp.News.NewsHistory.NewsHistory;
+import com.nikunjpc.quiznewsapp.News.NewsHistory.NewsHistoryDatabaseHelperClass;
+import com.nikunjpc.quiznewsapp.News.NewsHistory.NewsHistoryModelClass;
 import com.nikunjpc.quiznewsapp.R;
 
 import java.util.ArrayList;
@@ -22,13 +27,15 @@ import retrofit2.Callback;
 public class NewsMainActivity extends AppCompatActivity {
 
 //    String NewsUrl="";
-    String api= "YOUR_API_KEY";
+    String api= "7e8b827c7ebe44acb452a7c682210861";
+//        "YOUR_API_KEY";
 //    String author, title, url, urlToImage;
 
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
     EditText etQuery;
     Button btnSearch;
+    ImageButton btNewsHistory;
     Adapter adapter;
     List<NewsModelClass> list= new ArrayList<>(  );
 
@@ -42,8 +49,17 @@ public class NewsMainActivity extends AppCompatActivity {
 
         etQuery = findViewById( R.id.etQuery );
         btnSearch = findViewById( R.id.btnSearch );
+        btNewsHistory=findViewById( R.id.btnewsHistory );
 
         recyclerView.setLayoutManager( new LinearLayoutManager( this ) );
+
+        btNewsHistory.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i= new Intent(NewsMainActivity.this, NewsHistory.class);
+                startActivity(i);
+            }
+        } );
 
 //        Log.e( "news flow", "000001" );
 //
@@ -94,6 +110,10 @@ public class NewsMainActivity extends AppCompatActivity {
         Call<News> call;
 //        "7e8b827c7ebe44acb452a7c682210861";
         if (!etQuery.getText().toString().equals("")){
+            NewsHistoryDatabaseHelperClass databaseHelperClass = new NewsHistoryDatabaseHelperClass( NewsMainActivity.this );
+            NewsHistoryModelClass historymodelClass = new NewsHistoryModelClass( query   );
+            databaseHelperClass.addItem( historymodelClass );
+
             call= ApiClient.getInstance().getApi().getSpecificData(query,apiKey);
         }else{
             call= ApiClient.getInstance().getApi().getNews("in",apiKey);

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +69,7 @@ public class TipDatabaseHelperClass extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
 
         }
-//        cursor.close();
+        cursor.close();
         return store;
     }
 
@@ -78,7 +77,7 @@ public class TipDatabaseHelperClass extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.delete( TABLE_NAME, ID+ " = ? ", new String[] {String.valueOf( id )} );
+        db.delete( TABLE_NAME, "ID = ? ", new String[] {String.valueOf( id )} );
 
     }
 
@@ -86,12 +85,12 @@ public class TipDatabaseHelperClass extends SQLiteOpenHelper {
     {
         String date2;
 
-        Log.e("Checking", "000110");
+//        Log.e("Checking", "000110");
 
         List<TipModelClass> list=  getList();
-        Log.e("Checking", "000111----"+ list.size());
+//        Log.e("Checking", "000111----"+ list.size());
         date2= list.get( getList().size()-1 ).getTipDate();
-        Log.e("Checking", "000112");
+//        Log.e("Checking", "000112");
         return date2;
     }
 }

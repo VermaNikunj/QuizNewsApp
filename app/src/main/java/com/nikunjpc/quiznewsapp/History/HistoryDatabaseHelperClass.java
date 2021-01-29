@@ -73,7 +73,7 @@ public class HistoryDatabaseHelperClass extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
 
         }
-//        cursor.close();
+        cursor.close();
         return store;
     }
 
@@ -94,7 +94,15 @@ public class HistoryDatabaseHelperClass extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.delete( TABLE_NAME, ID+ " = ? ", new String[] {String.valueOf( id )} );
+//        id-=1;
+//        Log.e("History delete cat1", getList().get(id).getCategory());
+//
+//        Log.e("History delete size 1", ""+getList().size());
 
+        db.delete( TABLE_NAME, "ID = ? ", new String[] {String.valueOf( id )} );
+
+//        Log.e("History delete size 2", ""+getList().size());
+
+//        Log.e("History delete cat 2", getList().get(id).getCategory());
     }
 }

@@ -5,8 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +52,7 @@ public class TipBackupDatabaseHelperClass extends SQLiteOpenHelper {
     }
 
     public List<TipBackupModelClass> getList() {
-        String sql = "select * from " + TABLE_NAME +" order by "+ ID+ " desc";
+        String sql = "select * from " + TABLE_NAME;
         SQLiteDatabase db= this.getWritableDatabase();
         List<TipBackupModelClass> store = new ArrayList<>();
         Cursor cursor = db.rawQuery( sql, null );
@@ -65,16 +63,21 @@ public class TipBackupDatabaseHelperClass extends SQLiteOpenHelper {
                 store.add( new TipBackupModelClass( id, line ) );
             } while (cursor.moveToNext());
         }
-//        cursor.close();
+        cursor.close();
         return store;
     }
 
-    public void deleteItem (int id)
+    public void deleteItem ()
     {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.delete( TABLE_NAME, ID+ " = ? ", new String[] {String.valueOf( id )} );
+        int id=getList().size()-1;
+//        id-=1;
 
+//        Log.e("check delete", getList().get( id ).getTipBackupLine());
+        db.delete( TABLE_NAME, "ID = ? ", new String[] {String.valueOf( id )} );
+
+//        Log.e("check delete", getList().get( id ).getTipBackupLine());
     }
 
 
@@ -90,19 +93,26 @@ public class TipBackupDatabaseHelperClass extends SQLiteOpenHelper {
 //        return line;
 //    }
 
-    public String lastLine()
+    public String lastLine(int m)
     {
         String line;
 
-        Log.e("Checking", "100110");
+//        Log.e("Checking", "100110");
 
         List<TipBackupModelClass> list=  getList();
-        Log.e("Checking", "100111----"+ list.size());
-        if(list.size()==0)
+//        Log.e("Checking", "100111----"+ list.size());
+        int n=list.size();
+        if(n==0)
             line="Every day is best";
-        else
-        line= list.get( getList().size()).getTipBackupLine();
-        Log.e("Checking", "100112");
+        else {
+            if(n>m)
+            line = list.get(  n-m ).getTipBackupLine();
+            else if(n<m)
+                line = list.get(  m-n ).getTipBackupLine();
+            else line = list.get(  m-1 ).getTipBackupLine();
+
+        }
+//        Log.e("Checking Line", "100112"+line);
         return line;
     }
 }
