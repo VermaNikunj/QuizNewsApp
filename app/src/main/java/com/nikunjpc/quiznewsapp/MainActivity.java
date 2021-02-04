@@ -1,11 +1,9 @@
 package com.nikunjpc.quiznewsapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +11,9 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -66,6 +67,12 @@ public class MainActivity extends AppCompatActivity {
         bthistory = (Button) findViewById( R.id.bthistory );
         sp1 = (Spinner) findViewById( R.id.sp1 );
         sp2 = (Spinner) findViewById( R.id.sp2 );
+
+
+        String alertLine= getIntent().getStringExtra( "lineCheck" );
+
+        if(!alertLine.equals( "00" ))
+            showAlertDialog( alertLine );
 
 
         btTip=findViewById( R.id.btTip );
@@ -155,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Tip.class);
+                intent.putExtra( "clicked", 1 );
                 startActivity( intent );
             }
         } );
@@ -179,29 +187,10 @@ public class MainActivity extends AppCompatActivity {
                 {
 
 
-//                    Log.e( "flow", "000000" );
-
                 progressBar.setVisibility( View.VISIBLE);
-//                Log.e( "flow", "000001" );
-
-
-//            loadResultList();
-//                Log.e( "flow", "000016" );
-
-
-
-
-//            }
-//        } );
-//
-//    }
-//
-//    private void loadResultList() {
-//        Log.e( "flow", "000002" );
 
         RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
 
-//        Log.e( "flow", "000003" );
 
         Url= "https://opentdb.com/api.php?amount=10&category="+(cat+8)+"&difficulty="+List2.get( type ).toLowerCase()+"&type=multiple";
 
@@ -210,8 +199,6 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-//                        progressBar.setVisibility(View.INVISIBLE);
-//                        Log.e( "flow", "000004" );
 
 
                         try {
@@ -340,20 +327,6 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
     }
-//
-//    public ArrayList<Result> getResultList()
-//    {
-//        Log.e( "size get", ""+resultList.isEmpty() );
-//
-//        return resultList;
-//    }
-//
-//    public void setResultList(ArrayList<Result> resultList)
-//    {
-//        Log.e( "size set", ""+resultList.isEmpty() );
-//
-//        this.resultList=resultList;
-//    }
 
 
     @Override
@@ -368,5 +341,23 @@ public class MainActivity extends AppCompatActivity {
         mBackPressed= System.currentTimeMillis();
     }
 
+    public void showAlertDialog(String line)
+    {
+        AlertDialog.Builder dialog=new AlertDialog.Builder(MainActivity.this);
+        dialog.setMessage(line);
+        dialog.setTitle("\t Tip of the Day ");
+        dialog.setPositiveButton("CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        dialog.cancel();
+
+                    }
+                });
+
+        AlertDialog alertDialog=dialog.create();
+        alertDialog.show();
+
+    }
 
 }

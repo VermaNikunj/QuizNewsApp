@@ -17,7 +17,14 @@
         <activity
             android:name=".TipOfTheDay.Tip"
             android:label="Tip Of The Day"
-            android:screenOrientation="locked" />
+            android:screenOrientation="locked" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".News.Detailed"
             android:screenOrientation="locked"
@@ -45,11 +52,6 @@
             android:name=".MainActivity"
             android:label="Quiz News App"
             android:screenOrientation="locked">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

@@ -89,7 +89,7 @@ public class TipDatabaseHelperClass extends SQLiteOpenHelper {
 
         List<TipModelClass> list=  getList();
 //        Log.e("Checking", "000111----"+ list.size());
-        date2= list.get( getList().size()-1 ).getTipDate();
+        date2= list.get( 0 ).getTipDate();
 //        Log.e("Checking", "000112");
         return date2;
     }

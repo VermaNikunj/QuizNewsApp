@@ -1,5 +1,6 @@
 package com.nikunjpc.quiznewsapp.TipOfTheDay;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.nikunjpc.quiznewsapp.MainActivity;
 import com.nikunjpc.quiznewsapp.R;
 
 import org.json.JSONArray;
@@ -30,15 +32,39 @@ public class Tip extends AppCompatActivity {
 
         RecyclerView recyclerViewTip;
 
+        public String line="00";
+        int clicked=-1;
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate( savedInstanceState );
             setContentView( R.layout.activity_tip );
 
+
+            clicked = getIntent().getIntExtra( "clicked",-1 );
+
             Load();
 //            Log.e("Checking", "000000");
             loadCheck();
 //            Log.e("Checking", "000017");
+
+            if(clicked !=1)
+            {
+                Intent intent= new Intent( Tip.this, MainActivity.class );
+                intent.putExtra( "lineCheck", line);
+                startActivity( intent );
+            }
+            else TipStart();
+
+        }
+
+        public void TipStart()
+        {
+//
+//            Load();
+////            Log.e("Checking", "000000");
+//            loadCheck();
+////            Log.e("Checking", "000017");
 
             recyclerViewTip = findViewById( R.id.recyclerViewTip );
             recyclerViewTip.setLayoutManager( new LinearLayoutManager( this ) );
@@ -62,7 +88,7 @@ public class Tip extends AppCompatActivity {
         {
 
 //            Log.e("Checking", "000001");
-            SimpleDateFormat formatter = new SimpleDateFormat( "dd/MM/yyyy HH:mm:ss",Locale.ENGLISH );
+            SimpleDateFormat formatter = new SimpleDateFormat( "dd/MM/yyyy HH:mm:ss", Locale.ENGLISH );
             Date date = new Date();
             String currentdatetime= formatter.format(date);
 
@@ -93,10 +119,12 @@ public class Tip extends AppCompatActivity {
                                 (TimeUnit.MILLISECONDS.toSeconds( date2.getTime() - date1.getTime() ) > 0))
                         {
                             updateDisplay( currentdatetime, 1 );
+                            if(clicked!=1)
                             Toast.makeText( this, "New Tip of the day", Toast.LENGTH_SHORT ).show();
                         }
                     }
                     else {
+                        if(clicked!=1)
                         Toast.makeText( this, "Same Visit", Toast.LENGTH_SHORT ).show();
                     }
                 } catch (ParseException e) {
@@ -135,7 +163,6 @@ public class Tip extends AppCompatActivity {
                                         JSONObject resultObject = resultArray.getJSONObject(i);
 
 //                                        Log.e("Checking", "3000016");
-
 
                                             TipBackupModelClass t= new TipBackupModelClass (resultObject.getString("text"));
 //                                        Log.e("Checking", "3000017");
@@ -203,7 +230,7 @@ public class Tip extends AppCompatActivity {
 
             TipDatabaseHelperClass databaseHelperClass = new TipDatabaseHelperClass( Tip.this );
 //            Log.e("Checking", "000006");
-            String line= GetLine();
+            line= GetLine();
 //            Log.e("Checking", "000010");
             String currentdate=currentdatetime.substring( 0,10 );
 //            Log.e("Checking", "000011");
@@ -211,6 +238,7 @@ public class Tip extends AppCompatActivity {
 //            Log.e("Checking", "000012");
             databaseHelperClass.addItem( tipmodelClass );
 
+//            line=null;
 
 
 //            Log.e("Checking", "000013");
@@ -224,4 +252,7 @@ public class Tip extends AppCompatActivity {
 //            Log.e("Checking", "000016");
 
         }
-    }
+
+
+
+}
