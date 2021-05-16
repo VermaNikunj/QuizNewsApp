@@ -1,19 +1,18 @@
 package com.nikunjpc.quiznewsapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.nikunjpc.quiznewsapp.History.HistoryDatabaseHelperClass;
 import com.nikunjpc.quiznewsapp.History.HistoryModelClass;
@@ -92,7 +91,7 @@ public class QuizQuestion extends AppCompatActivity {
 //             next=1;
 
 //            Log.e("Print", "Print1111");
-            new CountDownTimer( 15000, 1000 ) {
+            new CountDownTimer( 11000, 1000 ) {
                 public void onTick(long millisUntilFinished) {
                     clock.setText( "Seconds remaining: " + millisUntilFinished / 1000 );
                 }

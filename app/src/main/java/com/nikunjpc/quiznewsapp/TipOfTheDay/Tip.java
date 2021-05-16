@@ -32,8 +32,8 @@ public class Tip extends AppCompatActivity {
 
         RecyclerView recyclerViewTip;
 
-        public String line="00";
-        int clicked=-1;
+        public String line=".";
+        int clicked=0;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +41,17 @@ public class Tip extends AppCompatActivity {
             setContentView( R.layout.activity_tip );
 
 
-            clicked = getIntent().getIntExtra( "clicked",-1 );
+            clicked = getIntent().getIntExtra( "clicked",0 );
 
             Load();
 //            Log.e("Checking", "000000");
             loadCheck();
 //            Log.e("Checking", "000017");
 
-            if(clicked !=1)
+            if(clicked ==0)
             {
                 Intent intent= new Intent( Tip.this, MainActivity.class );
+                intent.putExtra( "showDialog", 1 );
                 intent.putExtra( "lineCheck", line);
                 startActivity( intent );
             }
@@ -119,12 +120,12 @@ public class Tip extends AppCompatActivity {
                                 (TimeUnit.MILLISECONDS.toSeconds( date2.getTime() - date1.getTime() ) > 0))
                         {
                             updateDisplay( currentdatetime, 1 );
-                            if(clicked!=1)
+                            if(clicked==0)
                             Toast.makeText( this, "New Tip of the day", Toast.LENGTH_SHORT ).show();
                         }
                     }
                     else {
-                        if(clicked!=1)
+                        if(clicked==0)
                         Toast.makeText( this, "Same Visit", Toast.LENGTH_SHORT ).show();
                     }
                 } catch (ParseException e) {

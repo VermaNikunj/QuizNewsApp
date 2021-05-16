@@ -16,9 +16,9 @@
             android:label="News Searched History"/>
         <activity
             android:name=".TipOfTheDay.Tip"
-            android:label="Tip Of The Day"
-            android:screenOrientation="locked" >
-
+            android:screenOrientation="locked"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

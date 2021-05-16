@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     int cat, type;
 
+    int show=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -69,11 +70,13 @@ public class MainActivity extends AppCompatActivity {
         sp2 = (Spinner) findViewById( R.id.sp2 );
 
 
-        String alertLine= getIntent().getStringExtra( "lineCheck" );
+        show = getIntent().getIntExtra( "showDialog",0 );
+        if(show==1) {
+            String alertLine = getIntent().getStringExtra( "lineCheck" );
 
-        if(!alertLine.equals( "00" ))
-            showAlertDialog( alertLine );
-
+            if (!alertLine.equalsIgnoreCase( "." ))
+                showAlertDialog( alertLine );
+        }
 
         btTip=findViewById( R.id.btTip );
 
